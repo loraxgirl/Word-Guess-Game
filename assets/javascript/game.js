@@ -1,7 +1,7 @@
-// Creating a giant wordGuessGame object that will house all of our logic and variables.
+// start of the game
 var wordGuessGame = {
 
-  // Object of all words that can be chosen, along with info such as their picture and a song clip.
+  // names and details list - creating the objects
   namesList: {
     lovelace: {
       hint: "Ada -------- (1815 – 1852) was a mathematician and the world’s first computer programmer. She is regarded as the first to recognise the full potential of computers.",
@@ -55,7 +55,7 @@ var wordGuessGame = {
     }
   },
 
-  // Variables that set the initial state of our wordGuess game.
+  // variables at beginning of game (and for reset)
   currentName: null,
   lettersOfName: [],
   matchedLetters: [],
@@ -65,37 +65,42 @@ var wordGuessGame = {
   letterGuessed: null,
   wins: 0,
 
-  // The setupGame method is called when the page first loads.
+  // sets up the game when the page loads
   setupGame: function() {
-    // Here we pick a random word.
+    // this is where a random name from the list is picked
     var objKeys = Object.keys(this.namesList);
     this.currentName = objKeys[Math.floor(Math.random() * objKeys.length)];
+
+    // this pushes the hint for the chosen name to the page
     document.querySelector("#hint-text").innerHTML = this.namesList[this.currentName].hint;
 
-    // Split the chosen word up into its individual letters.
+    // splits the name into letters
     this.lettersOfName = this.currentName.split("");
-    // Builds the representation of the word we are trying to guess and displays it on the page.
-    // At the start it will be all underscores since we haven't guessed any letters ("_ _ _ _").
+
+    // creates a representation of the name and pushes it to the page (starts as underscores)
     this.rebuildWordView();
-    // This function sets the number of guesses the user gets, and renders it to the HTML.
+
+    // sets the number of initial guesses
     this.processUpdateTotalGuesses();
   },
 
-  // This function is run whenever the user guesses a letter..
+  // this runs when a letter key is pressed for a guess
   updatePage: function(letter) {
-    // If the user has no guesses left, restart the game.
+
+    // when 0 guesses left, restarts game
     if (this.guessesLeft === 0) {
       this.restartGame();
     }
-    // Otherwise...
+    // guesses left, so it runs these steps
     else {
-      // Check for and handle incorrect guesses.
+
+      // incorrect guess, so total guesses remaining is updated
       this.updateGuesses(letter);
 
-      // Check for and handle correct guesses.
+      // correct guess
       this.updateMatchedLetters(letter);
 
-      // Rebuild the view of the word. Guessed letters are revealed, non-guessed letters have a "_".
+      // rebuilds what is shown on the page, with matched letters and blanks
       this.rebuildWordView();
 
       // If the user wins, restart the game.
@@ -214,7 +219,7 @@ var wordGuessGame = {
 
       // Update bio image on page.
       document.querySelector("#bio-div").innerHTML =
-        "<img class='band-image' src='assets/images/'" + 
+        "<img class='bio-image' src='assets/images/'" + 
         this.namesList[this.currentName].picture + "alt=" +
         this.namesList[this.currentName].fullname + ">";
 
