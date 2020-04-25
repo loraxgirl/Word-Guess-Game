@@ -65,6 +65,7 @@ var wordGuessGame = {
   letterGuessed: null,
   wins: 0,
 
+  
   // sets up the game when the page loads
   setupGame: function() {
     // this is where a random name from the list is picked
@@ -86,6 +87,8 @@ var wordGuessGame = {
 
   // this runs when a letter key is pressed for a guess
   updatePage: function(letter) {
+    var toggle = new Audio('assets/sounds/toggle1.mp3');
+    toggle.play();
 
     // when 0 guesses left, restarts game
     if (this.guessesLeft === 0) {
@@ -106,10 +109,13 @@ var wordGuessGame = {
       // If the user wins, restart the game.
       if (this.updateWins() === true) {
         this.restartGame();
+      
       }
     }
-
+  
   },
+
+
 
   // new function - incorrect guess and not duplicating a previous guess
   updateGuesses: function(letter) {
@@ -219,10 +225,10 @@ var wordGuessGame = {
       document.querySelector("#wins").innerHTML = this.wins;
 
       // Update bio image on page.
-      document.querySelector("#bio-div").innerHTML =
-        "<img class='bio-image' src='assets/images/'" + 
-        this.namesList[this.currentName].picture + "alt=" +
-        this.namesList[this.currentName].fullname + ">";
+  //    document.querySelector("#bio-div").innerHTML =
+  //      "<img class='bio-image' src='assets/images/'" + 
+  //      this.namesList[this.currentName].picture + "alt=" +
+  //      this.namesList[this.currentName].fullname + ">";
 
       // Play applause sound
       var audio = new Audio("assets/sounds/applause.WAV");
