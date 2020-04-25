@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Women in Computers - Guessing Game</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&family=Bungee+Inline&family=Damion&family=Expletus+Sans:wght@700&family=Nova+Slim&family=Supermercado+One&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>    
+    <div id="wrapper">
+      <h1 class="game-title">GUESS THAT NAME</h1>
+      <h3 class="game-subtitle">Women in Computers</h3>
+    </div>
+
+    <p id="bio"></p>
+    <!-- Pic goes here -->
+    <div id="bio-div"><img src="assets/images/rosie.png" alt="Rosie - Women in Computer Science" class="bio-image"></div>
+
+    <div id="container">
+      <div id="game-section">
+        <p id="explanation">This game highlights a small handful of the many amazing women who have done groundbreaking work in computers and women's roles in STEM.<br><br>Press any key to start matching the last name to the hint:</p>
+ 
+        <!-- hint goes here -->
+        <div id="hint-section">
+          <p class="section-title">Hint</p>
+          <div id="hint-text"></div>
+        </div>
+
+        <!-- Name currently in play goes here -->
+        <div id="current-name-section">
+          <p class="section-title">Current Word</p>
+          <div id="current-word"></div>
+        </div>
+ 
+        <!-- number of remaining guesses goes here -->
+        <div id="guesses-remaining-section">
+          <p class="section-title">Number of Guesses Remaining</p>
+          <div id="guesses-remaining"></div>
+        </div>
+ 
+        <!-- guessed letters go here -->
+        <div id="guessed-letters-section">
+          <p class="section-title">Letters Already Guessed</p>
+          <div id="guessed-letters"></div>
+        </div>
+
+        <!-- wins go here, losses not counted -->
+        <div>
+          <p class="section-title">Wins</p>
+          <div id="wins"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- javaScript link -->
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+body {
+  position:           relative;
+  color:            #ffffff;
+  background:       #152219;
+}
+
+* {
+  font-size:          20px;
+  letter-spacing:     2px;
+  font-family:        'Barlow Condensed', sans-serif;
+}
+
+/* Titles */
+.game-title {
+  background-color: #344e41;
+  background-image:   url(../images/bo_play_pattern.png);
+  position:           relative;
+  margin:             0;
+  padding:            10px;
+  width:              80%;
+  text-align:         left;
+  font-family:        'Expletus Sans', cursive;
+  font-size:          500%;
+  font-style:         normal;
+  color:            #696968;
+  -webkit-text-stroke: 1px #c6c3ba;
+  line-height:        1;
+}
+
+.game-subtitle {
+  position:            absolute;
+  margin:              0;
+  margin-top:          -50px;
+  margin-left:         450px;
+  font-family:         'Supermercado One', cursive;
+  font-size:           60px;
+  color:             #344e41;
+  filter:              drop-shadow(2px 2px 10px #b2ceb3);
+  -webkit-text-stroke: 1px #46684c;
+}
+
+div {
+  text-align: center;
+}
+
+/* Bio & Pic Section */
+#bio-div {
+  position:            relative;
+  top:                 40px;
+  left:                50px;
+  width:               300px;
+  height:              300px;
+  padding:             10px;
+  margin-left:         10px;
+}
+
+.bio-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 25px;
+}
+
+#container {
+  position:            absolute;
+  top:                 180px;
+  left:                500px;
+}
+
+/* Game Section */
+#game-section {
+  float:               left;
+  background-color:  #46684C;
+  width:               500px;
+  height:              750px;
+  padding-top:         4px;
+  padding-right:       14px;
+  padding-left:        14px;
+  margin-bottom:       50px;
+  border:              7px ridge #B2CEB3;
+  border-radius:       14px;
+  box-shadow:          inset -1px -1px #658E64, 0px 1px #C6C3BA;
+}
+
+#explanation {
+  text-align:          justify;
+}
+
+#hint-text {
+  background-color: #C6C3BA;
+  color:            #344E41;
+  text-align:       left;
+  padding:          6px;
+}
+
+#current-word, #guessed-letters {
+  font-size:            120%;
+  }
+
+  #guessed-letters {
+    min-height:         20px;
+    border:             2px ridge #B2CEB3;
+    border-radius:      14px;
+    background-color: #658E64;
+  }
+  
+  #wins {
+    font-size:          175%;
+    color:            #a53860; 
+    filter:              drop-shadow(5px 5px 10px #c5e9c6);
+              -webkit-text-stroke: 1px #ffffff;
+    }
+  
