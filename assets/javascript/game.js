@@ -111,9 +111,10 @@ var wordGuessGame = {
 
   },
 
-  // This function governs what happens when the user makes an incorrect guess (that they haven't guessed before).
+  // new function - incorrect guess and not duplicating a previous guess
   updateGuesses: function(letter) {
-    // If the letter is not in the guessedLetters array, and the letter is not in the lettersOfName array..
+
+    // adds new letter to guessed letters list
     if ((this.guessedLetters.indexOf(letter) === -1) && (this.lettersOfName.indexOf(letter) === -1)) {
 
       // Add the letter to the guessedLetters array.
@@ -127,7 +128,7 @@ var wordGuessGame = {
       document.querySelector("#guessed-letters").innerHTML =
       this.guessedLetters.join(", ");
     }
-  },
+  },                         
 
   // This function sets the initial guesses the user gets.
   processUpdateTotalGuesses: function() {
@@ -224,7 +225,7 @@ var wordGuessGame = {
         this.namesList[this.currentName].fullname + ">";
 
       // Play applause sound
-      var audio = new Audio("assets/sounds/applause.wav");
+      var audio = new Audio("assets/sounds/applause.WAV");
       audio.play();
 
       // return true, which will trigger the restart of our game in the updatePage function.
