@@ -5,7 +5,9 @@
 ## Game Objective:
 
 ```
-    This game highlights some of the key women breaking barriers and making breakthroughs in computer science --- Read the hint and then try to guess the correct last name! You'll earn a point for every correct answer!
+    This game highlights some of the key women breaking barriers and making breakthroughs in computer
+    science --- Read the hint and then try to guess the correct last name! You'll earn a point for every
+    correct answer!
 ```
 
 ##### Game Instructions:
