@@ -1,44 +1,61 @@
-// start of the game
+START OF GAME
 var wordGuessGame = {
 
-  // names and details list - creating the objects
+CREATE LIST OF NAMES/DETAILS
   namesList: {
     lovelace: {
       hint: "Ada -------- (1815 – 1852) was a mathematician and the world’s first computer programmer. She is regarded as the first to recognise the full potential of computers.",
+      picture: "placeholder.png",
+      fullname: "Ada Lovelace"
     },
     winlock: {
       hint: "Anna ------- (1857 – 1904), an astronomer and human computer, was one of the first members of the female computer group known as 'the Harvard Computers.'",
+      picture: "placeholder.png",
+      fullname: "Anna Winlock"
     },
     holberton: {
       hint: "Frances Elizabeth --------- (1917 – 2001) was one of the six original programmers of the first general-purpose electronic digital computer, ENIAC. She also invented breakpoints in computer debugging.",
+      picture: "placeholder.png",
+      fullname: "Betty Holberton"
     },
     clarke: {
       hint: "Edith ------ (1883 - 1959) worked as a 'computer', someone who performed difficult mathematical calculations before modern computers and calculators were invented.",
+      picture: "placeholder.png",
+      fullname: "Edith Clarke"
     },
     hopper: {
       hint: "Grace ------ (1906 - 1992) was the first woman to earn a PhD in mathematics from Yale University in 1934 and invented COBOL, one of the first easy-to-use computer languages",
+      picture: "placeholder.png",
+      fullname: "Grace Hopper"
     },
     bartik: {
       hint: "Jean Jennings ------ (1924 – 2011) and her colleagues developed and codified many of the fundamentals of programming while working on the ENIAC, since it was the first computer of its kind.",
+      picture: "placeholder.png",
+      fullname: "Jean Jennings Bartik"
     },
     sammet: {
       hint: "Jean E. ------ (1928 – 2017) was a computer scientist who developed the FORMAC programming language in 1962 and helped develop the COBOL programming language.",
+      picture: "placeholder.png",
+      fullname: "Jean E. Sammet"
     },
     burks: {
       hint: "Jewel ----- (1989 - ) works to make the tech industry more diverse and accessible to all people. She taught herself to build apps and launched a cutting-edge computer vision app called Partpic.",
+      picture: "placeholder.png",
+      fullname: "Jewel Burks - now Jewel Burks Solomon"
     },
     hamilton: {
       hint: "Margaret -------- (1936 - ), known as the 'Mother of Software', led the team at MIT in charge of onboard flight software on the Apollo computers.",
-    },
-    johnson: {
-      hint: "Katherine ------- (1918 - 2020), was the person John Glenn and Buzz Aldrin both trusted to calculate their trajectories, over the computers! She was a central figures in the book and movie 'Hidden Figures'.",
+      picture: "placeholder.png",
+      fullname: "Margaret Hamilton"
     },
     klawe: {
       hint: "Maria ----- (1951 - ) is the first female president of Harvey Mudd College and works hard to ignite passion about STEM fields amongst diverse groups.",
+      picture: "placeholder.png",
+      fullname: "Maria Klawe"
     }
   },
 
-  // variables at beginning of game (and for reset)
+SETS VARIABLE STATES FOR BEGINNING OF GAME/PAGE REFRESH
   currentName: null,
   lettersOfName: [],
   matchedLetters: [],
@@ -48,124 +65,115 @@ var wordGuessGame = {
   letterGuessed: null,
   wins: 0,
 
-  
-  // sets up the game when the page loads
+SETS THE GAME UP WHEN PAGE LOADS/REFRESHES
   setupGame: function() {
-    // this is where a random name from the list is picked
+
+PICK A RANDOM NAME HERE
     var objKeys = Object.keys(this.namesList);
     this.currentName = objKeys[Math.floor(Math.random() * objKeys.length)];
 
-    // this pushes the hint for the chosen name to the page
+PUSHES THE HINT FOR THE NAME TO THE PAGE
     document.querySelector("#hint-text").innerHTML = this.namesList[this.currentName].hint;
 
-    // splits the name into letters
+SPLITS NAME INTO INDIVIDUAL LETTERS
     this.lettersOfName = this.currentName.split("");
 
-    // creates a representation of the name and pushes it to the page (starts as underscores)
+BUILDS A REPRESENTATION OF THE WORD AND PUSHES IT TO THE PAGE
     this.rebuildWordView();
 
-    // sets the number of initial guesses
+SETS THE NUMBER OF GUESSES
     this.processUpdateTotalGuesses();
   },
 
-  // this runs when a letter key is pressed for a guess
+NEW FUNCTION - RUNS WHEN LETTER KEY IS PRESSED FOR A GUESS
   updatePage: function(letter) {
-    var toggle = new Audio('assets/sounds/toggle1.mp3');
-    toggle.play();
 
-    // when 0 guesses left, restarts game
+IF 0 GUESSES LEFT, GAME RESTARTS
     if (this.guessesLeft === 0) {
       this.restartGame();
     }
-    // guesses left, so it runs these steps
     else {
 
-      // incorrect guess, so total guesses remaining is updated
+INCORRECT GUESS, SO UPDATES TOTAL GUESSES REMAINING
       this.updateGuesses(letter);
 
-      // correct guess
+CORRECT GUESS
       this.updateMatchedLetters(letter);
 
-      // rebuilds what is shown on the page, with matched letters and blanks
+REBUILDS WORD ON PAGE WITH MATCHED LETTERS REVEALED
       this.rebuildWordView();
 
-      // If the user wins, restart the game.
+IF USER WINS, RESTARTS GAME
       if (this.updateWins() === true) {
-        this.restartGame();    
+        this.restartGame();
       }
     }
 
   },
 
-
-
-  // new function - incorrect guess and not duplicating a previous guess
+  // This function governs what happens when the user makes an incorrect guess (that they haven't guessed before).
   updateGuesses: function(letter) {
-
-    // adds new letter to guessed letters list
+    // If the letter is not in the guessedLetters array, and the letter is not in the lettersOfName array..
     if ((this.guessedLetters.indexOf(letter) === -1) && (this.lettersOfName.indexOf(letter) === -1)) {
 
-      // adds guessed letter to guessedLetters array
+      // Add the letter to the guessedLetters array.
       this.guessedLetters.push(letter);
 
-      // decreases remaining guesses by one
+      // Decrease guesses by one.
       this.guessesLeft--;
 
-      // updates remaining guesses and guessed letters on page
+      // Update guesses remaining and guesses letters on the page.
       document.querySelector("#guesses-remaining").innerHTML = this.guessesLeft;
       document.querySelector("#guessed-letters").innerHTML =
       this.guessedLetters.join(", ");
     }
-  },                         
+  },
 
-  // sets total amount of guesses user gets
+  // This function sets the initial guesses the user gets.
   processUpdateTotalGuesses: function() {
-
-    // user guesses depend on how long name is
+    // The user will get more guesses the longer the word is.
     this.totalGuesses = this.lettersOfName.length + 8;
     this.guessesLeft = this.totalGuesses;
 
-    // pushes amount of remaining guesses to page
+    // Render the guesses left to the page.
     document.querySelector("#guesses-remaining").innerHTML = this.guessesLeft;
   },
 
-  // this section is what happens if a guessed letter is correct
+  // This function governs what happens if the user makes a successful guess.
   updateMatchedLetters: function(letter) {
-
-    // scans through letters of name
+    // Loop through the letters of the "solution".
     for (var i = 0; i < this.lettersOfName.length; i++) {
-  
-      // guessed letter is correct
+      // If the guessed letter is in the solution, and we haven't guessed it already..
       if ((letter === this.lettersOfName[i]) && (this.matchedLetters.indexOf(letter) === -1)) {
-
-        // pushes guessed letter to matchedLetters array
+        // Push the newly guessed letter into the matchedLetters array.
         this.matchedLetters.push(letter);
       }
     }
   },
 
-  // this controls how the current name is displayed
+  // This function builds the display of the word that is currently being guessed.
+  // For example, if we are trying to guess "blondie", it might display "bl_ndi_".
   rebuildWordView: function() {
+    // We start with an empty string.
     var wordView = "";
 
-    // scans letters of current name
+    // Loop through the letters of the word we are trying to guess..
     for (var i = 0; i < this.lettersOfName.length; i++) {
-
-      // this is where a correctly guessed letter is pushed to the page in the display of the name
+      // If the current letter has been guessed, display that letter.
       if (this.matchedLetters.indexOf(this.lettersOfName[i]) !== -1) {
         wordView += this.lettersOfName[i];
       }
-      // unguessed letters are "_" until guessed
+      // If it hasn't been guessed, display a "_" instead.
       else {
         wordView += "&nbsp;_&nbsp;";
       }
     }
 
-    // updates page with new string
-    document.querySelector("#current-name").innerHTML = wordView;
+    // Update the page with the new string we built.
+    document.querySelector("#current-word").innerHTML = wordView;
   },
 
-  // restarts game and resets all variables
+  // Function that "restarts" the game by resetting all of the variables.
   restartGame: function() {
     document.querySelector("#guessed-letters").innerHTML = "";
     this.currentName = null;
@@ -179,67 +187,64 @@ var wordGuessGame = {
     this.rebuildWordView();
   },
 
-  // this checks to see if game won
+  // Function that checks to see if the user has won.
   updateWins: function() {
     var win;
 
-    // if name not guessed yet, sets win to false
+    // If you haven't correctly guessed a letter in the word yet, we set win to false.
     if (this.matchedLetters.length === 0) {
       win = false;
     }
-    // else sets win to true
+    // Otherwise, we set win to true.
     else {
       win = true;
     }
 
-    // checking what letters have been guessed, if name has been completed, if not still setting win to false
+    // If a letter appears in the lettersOfName array, but not in the matchedLetters array, set win to false.
+    // In English, if you haven't yet guessed all the letters in the word, you don't win yet.
     for (var i = 0; i < this.lettersOfName.length; i++) {
       if (this.matchedLetters.indexOf(this.lettersOfName[i]) === -1) {
         win = false;
       }
     }
 
-    // when win = true
+    // If win is true...
     if (win) {
 
-      // adds 1 to win total
+      // Add 1 to win total
       this.wins = this.wins + 1;
 
-      // updates wins on page
+      // Update wins
       document.querySelector("#wins").innerHTML = this.wins;
 
-      // pushes new women in computers image to page
-      var myArray = [ "wic1.jpg", "wic2.jpg", "wic3.jpg", "wic4.jpg", "wic5.jpg", "wic6.jpg", "wic7.jpg", "wic8.jpg", "wic9.jpg", "wic10.jpg", "wic11.jpg", "wic12.jpg", "wic13.jpg", "wic14.jpg", "wic15.jpg", "wic16.jpg", "wic17.jpg", "wic18.jpg", "wic19.jpg", "wic20.jpg", "wic21.jpg", "wic22.jpg", "wic23.jpg", "wic24.jpg", "wic25.jpg", "wic26.jpg", "wic27.jpg"];
-      var randomItem = myArray[Math.floor(Math.random()*myArray.length)];
+      // Update bio image on page.
       document.querySelector("#bio-div").innerHTML =
-        "<img class='bio-image' src='assets/images/" + randomItem + "'>";
+        "<img class='band-image' src='assets/images/'" + 
+        this.namesList[this.currentName].picture + "alt=" +
+        this.namesList[this.currentName].fullname + ">";
 
-      // plays applause sound for a win
-      var audio = new Audio("assets/sounds/applause.WAV");
+      // Play applause sound
+      var audio = new Audio("assets/sounds/applause.wav");
       audio.play();
 
-      // when game is won, this triggers restart (updatePage function)
+      // return true, which will trigger the restart of our game in the updatePage function.
       return true;
     }
-
-    // game not won but guesses still remaining, sends false to updatePage
+    // If win is false, return false to the updatePage function. The game goes on!
     return false;
   }
 };
 
-// starts game set up when page loads/refreshes
+// Initialize the game when the page loads.
 wordGuessGame.setupGame();
 
-// on any keypress:
+// When a key is pressed..
 document.onkeyup = function(event) {
-
-  // this checks to see if the key is a letter key
+  // Check if the key pressed is a letter.
   if (event.keyCode >= 49 && event.keyCode <= 90) {
-    
-    // if it is a letter key, this captures which letter
+    // Capture pressed key and make it lowercase.
     wordGuessGame.letterGuessed = event.key.toLowerCase();
-    
-    // sends that guessed letter to updatePage function to update game
+    // Pass the guessed letter into our updatePage function to run the game logic.
     wordGuessGame.updatePage(wordGuessGame.letterGuessed);
   }
   
