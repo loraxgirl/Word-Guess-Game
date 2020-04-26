@@ -186,7 +186,7 @@ div {
     }
   
   .game-subtitle {
-    margin-top:          -36px;
+    margin-top:          -50px;
     margin-left:         136px;
     font-size:           50px;
     color:               #c2e5d0;
@@ -196,7 +196,7 @@ div {
   /* Bio & Pic Section */
   #bio-div {
     position:            relative;
-    top:                 14px;
+    top:                 10px;
     left:                50px;
     width:               220px;
     height:              220px;
@@ -206,12 +206,12 @@ div {
 
   .bio-image {
     width:                90%;
-    height:               70%;
+    height:               85%;
   }
   
   #container {
       position:           absolute;
-      top:                290px;
+      top:                370px;
       left:               18px;
     }
   
@@ -252,7 +252,7 @@ div {
     }
   
   .game-subtitle {
-    margin-top:          -33px;
+    margin-top:          -60px;
     margin-left:         176px;
     font-size:           54px;
     color:             #c2e5d0;
@@ -271,13 +271,13 @@ div {
   }
 
   .bio-image {
-    width:                100%;
+    width:                80%;
     height:               80%;
   }
   
   #container {
       position:           absolute;
-      top:                340px;
+      top:                380px;
       left:               80px;
     }
   
